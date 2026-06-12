@@ -27,8 +27,18 @@ tools = [
     ),
 ]
 
-agent = ReActAgent.from_tools(tools, llm=Settings.llm, verbose=True, context="Purpose: The primary role of this agent is to assist users by providing accurate information about Sri Lanka.")
+import asyncio
 
-while (prompt := input("Enter a prompt (q to quit): ")) != "q":
-    result = agent.query(prompt)
-    print(result)
+agent = ReActAgent(
+    tools=tools,
+    llm=Settings.llm,
+    verbose=True,
+    system_prompt="Purpose: The primary role of this agent is to assist users by providing accurate information about Sri Lanka.",
+)
+
+async def main():
+    while (prompt := input("Enter a prompt (q to quit): ")) != "q":
+        result = await agent.run(prompt)
+        print(result)
+
+asyncio.run(main())
