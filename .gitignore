@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv/
+env/
+venv/
+ENV/
+ai/
+
+# LlamaIndex cached storage
+sri_lanka/
+
+# VS Code / IDE configs
+.vscode/
+.idea/
+
+# Local text files / outputs
+data/notes.txt
