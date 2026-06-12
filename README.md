@@ -31,5 +31,43 @@ graph TD
 
 ## Core Features
 * **Intelligent ReAct Agent**: Autonomously determines whether to consult knowledge bases or execute procedural tools (e.g. saving summaries).
-* **API Rate-Limit Optimizer**: Special token-splitting batch loader with custom delay buffers to respect free-tier API quotas.
+* **API Rate-Limit Optimizer**: Special token-splitting batch loader with custom delay buffers to respect free-tier API quotas (bypasses Gemini 429 Resource Exhausted errors).
 * **Persistent Vector Indexing**: Caches document vectors locally to guarantee instantaneous search on subsequent runs.
+
+## Technical Details
+* **Knowledge Source**: The RAG context is populated from a comprehensive PDF handbook containing geographic, cultural, and political profiles of Sri Lanka.
+* **Local Notes Persistence**: Integrates a `note_saver` FunctionTool to record session logs directly into `data/notes.txt` on command.
+* **Adaptive API Throttling**: Embeds nodes using the new `gemini-embedding-2` model in 5-node batches, with 3-second intervals and an automatic 60-second recovery timeout block. This prevents API lockouts on Google's free tier (15 requests per minute limit).
+* **Model Configurations**:
+  - LLM: `gemini-2.0-flash` (via `google-genai` unified SDK)
+  - Embeddings: `gemini-embedding-2`
+
+---
+
+## Getting Started
+
+### Prerequisites
+Ensure you have Python 3.10+ installed.
+
+### Installation & Setup
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/SihanUdayaratna03/DocSense-AI.git
+   cd DocSense-AI
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Configure Environment:**
+   Create a `.env` file in the root folder:
+   ```env
+   GEMINI_API_KEY=your_gemini_api_key_here
+   ```
+
+4. **Launch Agent:**
+   ```bash
+   python main.py
+   ```
