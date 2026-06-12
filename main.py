@@ -26,3 +26,9 @@ tools = [
         ),
     ),
 ]
+
+agent = ReActAgent.from_tools(tools, llm=Settings.llm, verbose=True, context="Purpose: The primary role of this agent is to assist users by providing accurate information about Sri Lanka.")
+
+while (prompt := input("Enter a prompt (q to quit): ")) != "q":
+    result = agent.query(prompt)
+    print(result)
