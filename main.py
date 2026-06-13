@@ -27,8 +27,6 @@ tools = [
     ),
 ]
 
-import asyncio
-
 agent = ReActAgent(
     tools=tools,
     llm=Settings.llm,
@@ -36,9 +34,19 @@ agent = ReActAgent(
     system_prompt="Purpose: The primary role of this agent is to assist users by providing accurate information about Sri Lanka.",
 )
 
-async def main():
-    while (prompt := input("Enter a prompt (q to quit): ")) != "q":
-        result = await agent.run(prompt)
-        print(result)
 
-asyncio.run(main())
+async def run_agent(prompt: str) -> str:
+    """Run the agent with a prompt and return the response as a string."""
+    result = await agent.run(prompt)
+    return str(result)
+
+
+if __name__ == "__main__":
+    import asyncio
+
+    async def main():
+        while (prompt := input("Enter a prompt (q to quit): ")) != "q":
+            result = await run_agent(prompt)
+            print(result)
+
+    asyncio.run(main())

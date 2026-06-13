@@ -3,3 +3,7 @@ llama-index-llms-gemini
 llama-index-readers-file
 pypdf
 python-dotenv
+flask
+flask-cors
+llama-index-llms-google-genai
+llama-index-embeddings-google-genai
